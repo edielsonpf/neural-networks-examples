@@ -1,0 +1,1 @@
+This project has some different implementations for neural networks in Matlab/Scilab for using as a reference.
