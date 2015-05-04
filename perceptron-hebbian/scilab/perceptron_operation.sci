@@ -7,11 +7,12 @@
 // classes: Classificação das amostras passadas como entrada
 function classes = perceptron_operation(pesos, entradas)
     // Número de amostras
-    num_amostras = size(entradas, 1);
+    [input_size,num_amostras] = size(entradas);
+
     // Inicializa o vetor de classes (tipos classificados)
     classes = zeros(num_amostras, 1);
     for k = 1 : num_amostras
-        u = entradas(k,:) * pesos;
+        u = pesos'*entradas(:,k);
         y = sign(u);
         if (y == -1)
             classes(k) = -1;
