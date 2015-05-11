@@ -1,0 +1,21 @@
+Dimensões das matrizes
+
+xt:  (nTreinamento,nEntradas)
+dt:  (nTreinamento,nSaidas)
+xv:  (nValidacao,nEntradas)
+dv:  (nValidacao,nSaidas)
+
+x:   (1,nEntradas)
+xin: (1,nEntradas+1)
+w1:  (nEscondida,nEntradas+1)
+yh:  (1,nEscondida)
+xh:  (1,nEscondida+1)
+w2:  (nSaidas,nEscondida+1)
+y:   (1,nSaidas)
+d:   (1,nSaidas)
+e:   (1,nSaidas)
+
+deltaSaida: (1,nSaidas)
+W2red:      (nSaidas,nEscondida) 
+deltaEscondida: (1,nEscondida)
+
