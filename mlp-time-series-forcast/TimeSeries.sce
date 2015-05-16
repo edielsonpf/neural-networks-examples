@@ -101,28 +101,40 @@ TrainingData=[
     0.0077
 ];
 
-np=5;
-n1=10;
+//np=5, np=10, np=15
+//n1=10, n1=15, n1=25
+np=10;
+n1=15;
+
 [r,c]=size(TrainingData);
 
 //Preparing training data
 x=[];
+d=[];
 nd=1;
-for t=np+1:1:r-np-1
+for t=np+1:1:r
     for i=1:np
         x(i,t-np)=TrainingData(t-i);
     end
-    d(t-np)=TrainingData(t);
+    d(1,t-np)=TrainingData(t);
     nd=nd+1;
 end
 disp(x);
 disp(d);
 
-//Preparing desired output
-
-
 //Initializing ANN
 NeuralNetwork = [np n1 1];
 W = ann_FF_init(NeuralNetwork);
 
-//Training
+//===============Training===========
+//Taxa de aprendizagem e limiar do erro
+lp = [0.01, 1e-4];
+
+//Maximo numero de épocas
+epochs = 3000;
+
+//treinando
+W = ann_FF_Std_batch(x,d,NeuralNetwork,W,lp,epochs);
+disp(W);
+
+save('ANN.sod','W','np','n1');
