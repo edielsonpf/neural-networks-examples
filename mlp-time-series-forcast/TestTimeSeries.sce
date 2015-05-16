@@ -48,3 +48,5 @@ disp(xt);
 y = ann_FF_run(xt,NeuralNetwork,W)
 disp(y);
 disp(dt);
+Erro = eqm(y,dt);
+disp(Erro);
