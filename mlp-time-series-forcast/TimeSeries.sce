@@ -103,12 +103,11 @@ TrainingData=[
 
 //np=5, np=10, np=15
 //n1=10, n1=15, n1=25
-np=10;
-n1=15;
-
-[r,c]=size(TrainingData);
+np=5;
+n1=10;
 
 //Preparing training data
+[r,c]=size(TrainingData);
 x=[];
 d=[];
 nd=1;
@@ -137,4 +136,9 @@ epochs = 3000;
 W = ann_FF_Std_batch(x,d,NeuralNetwork,W,lp,epochs);
 disp(W);
 
-save('ANN.sod','W','np','n1');
+save('ANN_np_5_n1_10.sod','W','np','n1');
+
+
+
+
+

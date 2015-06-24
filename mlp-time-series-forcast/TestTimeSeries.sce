@@ -1,4 +1,5 @@
 load('ANN.sod','W','np','n1');
+//load('ANN_np_5_n1_10.sod','W','np','n1');
 disp(W);
 disp(np);
 disp(n1);
@@ -45,8 +46,13 @@ for t=np+1:1:r
 end
 disp(xt);
 
-y = ann_FF_run(xt,NeuralNetwork,W)
+NeuralNetwork = [np n1 1];
+y = ann_FF_run(xt,NeuralNetwork,W);
 disp(y);
 disp(dt);
 Erro = eqm(y,dt);
 disp(Erro);
+
+
+
+
