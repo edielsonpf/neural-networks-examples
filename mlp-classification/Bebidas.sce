@@ -289,5 +289,5 @@ xTest=[
 0.8622 0.7101 0.6236 0.7894
 ]';
 
-y = ann_FF_run(x,NeuralNetwork,W)
+y = ann_FF_run(xTest,NeuralNetwork,W)
 disp(y);
