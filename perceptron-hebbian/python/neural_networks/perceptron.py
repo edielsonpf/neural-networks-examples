@@ -28,7 +28,7 @@ class perceptron(object):
         else:
             return -1
             
-    def train(self,X,D):
+    def train_hebbian(self,X,D):
         
         epoch=0
         errors = 1        
@@ -46,3 +46,9 @@ class perceptron(object):
                     
             epoch = epoch+1    
         return self.synaptic_weights, epoch-1
+    
+    def classify(self,x):
+        
+        v=np.dot(self.synaptic_weights,np.transpose(x))
+        y=self.__sign(v)
+        return y
