@@ -13,7 +13,8 @@ if __name__ == '__main__':
     learning_rate=0.4
     max_epochs=100
     
-    nn = perceptron(3,learning_rate,max_epochs)
+    w = np.matrix([[0.84,0.68,0.88]])
+    nn = perceptron(w,3,learning_rate,max_epochs)
     w,epoch = nn.train_hebbian(X,D)
     print('\nFinal synaptics weights:')
     print(w)
