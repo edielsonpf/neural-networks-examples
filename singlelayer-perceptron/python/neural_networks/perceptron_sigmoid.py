@@ -42,13 +42,13 @@ class perceptron_sigmoid(object):
             error=error+delta
             num_samples=num_samples+1
         
-        return 1.0*error/num_samples
+        return (1.0*error/num_samples).item(0)
                 
     def train_stochastic(self,X,D,error):
         
-        meanSquareError=np.zeros(self.max_epoch)
+        meanSquareError=[]
         epoch=0
-        meanSquareError[epoch] = self.__meanSquareError(X,D)        
+        meanSquareError.append(self.__meanSquareError(X,D))        
         
         while epoch < self.max_epoch-1:
         
@@ -57,20 +57,20 @@ class perceptron_sigmoid(object):
             for x,d in zip(X,D):
                 v=np.dot(self.synaptic_weights,np.transpose(x))
                 y=self.__sigmoid(v)
-                error=d-y
-                delta=self.learning_rate*error*self.__sigmoid_prime(v)*x
-                self.synaptic_weights = self.synaptic_weights+delta
+                delta=d-y
+                deltaW=self.learning_rate*delta*self.__sigmoid_prime(v)*x
+                self.synaptic_weights = self.synaptic_weights+deltaW
             
-            meanSquareError[epoch] = self.__meanSquareError(X, D)        
+            meanSquareError.append(self.__meanSquareError(X,D))        
             if np.abs(meanSquareError[epoch]-meanSquareError[epoch-1]) < error: break
                    
         return self.synaptic_weights, epoch
     
     def train_batch(self,X,D,error):
         
-        meanSquareError=np.zeros(self.max_epoch)
+        meanSquareError=[]
         epoch=0
-        meanSquareError[epoch] = self.__meanSquareError(X,D)        
+        meanSquareError.append(self.__meanSquareError(X,D))        
                 
         while epoch < self.max_epoch-1:
             epoch = epoch+1
@@ -83,7 +83,7 @@ class perceptron_sigmoid(object):
         
             self.synaptic_weights = self.synaptic_weights+deltaW
             
-            meanSquareError[epoch] = self.__meanSquareError(X, D)        
+            meanSquareError.append(self.__meanSquareError(X,D))        
             if np.abs(meanSquareError[epoch]-meanSquareError[epoch-1]) < error: break
             
         return self.synaptic_weights,epoch,meanSquareError
@@ -95,8 +95,6 @@ class perceptron_sigmoid(object):
             v=np.dot(self.synaptic_weights,np.transpose(x))
         else:
             v=np.dot(w,np.transpose(x))
-#         print('v')
-#         print(v)
         y=self.__sigmoid(v)
         
         if (y >= 0.5):

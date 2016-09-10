@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 
 if __name__ == '__main__':
     
+    BATCH = True
+    
     X=np.matrix \
     ([ \
     [-1,    -0.65080,    0.10970,    4.001],\
@@ -66,21 +68,26 @@ if __name__ == '__main__':
     print('\nExpected output values')
     print(D)
     
-    learning_rate=0.001
-    max_epochs=1000
-    min_error = 0.0001
     
-    nn = perceptron_sigmoid(None,4,learning_rate,max_epochs)
+    if BATCH:
+        learning_rate=0.00001
+        max_epochs=10000
+        min_error = 0.0000001
+        nn = perceptron_sigmoid(None,4,learning_rate,max_epochs)
+        w,epoch,error_hist = nn.train_batch(X, D,min_error)
+    else: #STOCHASTIC
+        learning_rate=0.00001
+        max_epochs=10000
+        min_error = 0.0000001
+        nn = perceptron_sigmoid(None,4,learning_rate,max_epochs)
+        w,epoch,error_hist = nn.train_stochastic(X, D,min_error)
     
-#     w,epoch,error = nn.train_batch(X, D,min_error)
-    w,epoch,error_hist = nn.train_stochastic(X, D,min_error)
     
-    print(error_hist[-1])
-    plt.plot(error_hist)
-    plt.show()
-    
+    epochs=[i for i in range(len(error_hist))]
+    print('Final error: %f' %error_hist[-1])
+    plt.plot(epochs,error_hist)
+    plt.show()  
 
-    
     print('\nFinal synaptic weights:')
     print(w)
     print('\nFinal number of epochs:')
