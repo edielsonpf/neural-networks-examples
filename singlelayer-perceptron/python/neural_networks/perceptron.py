@@ -68,7 +68,7 @@ class perceptron(object):
         meanSquareError[epoch] = self.__meanSquareError(X,D)        
         epoch=epoch+1
         
-        while epoch < self.max_epoch:
+        while epoch < self.max_epoch-1:
             
             epoch=epoch+1
             
@@ -89,7 +89,7 @@ class perceptron(object):
         epoch=0
         meanSquareError[epoch] = self.__meanSquareError(X,D)        
         
-        while epoch <= self.max_epoch:
+        while epoch <= self.max_epoch-1:
             epoch = epoch+1
             deltaW=0
             for x,d in zip(X,D):
