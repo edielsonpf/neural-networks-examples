@@ -47,7 +47,6 @@ class perceptron(object):
         errors = 1        
         
         while errors == 1 and epoch <= self.max_epoch:
-            epoch = epoch+1
             errors=0
             for x,d in zip(X,D):
                 v=np.dot(self.synaptic_weights,np.transpose(x))
@@ -57,40 +56,41 @@ class perceptron(object):
                     errors = 1
                     delta=self.learning_rate*error*x
                     self.synaptic_weights = self.synaptic_weights+delta
+            epoch = epoch+1
                     
-        return self.synaptic_weights, epoch-1
+        return self.synaptic_weights, epoch
     
     def train_adaline(self,X,D,error):
         
-        meanSquareError=np.zeros(self.max_epoch)
-        
+        meanSquareError=[]
         epoch=0
-        meanSquareError[epoch] = self.__meanSquareError(X,D)        
+        
+        meanSquareError.append(self.__meanSquareError(X,D))        
         epoch=epoch+1
         
         while epoch < self.max_epoch-1:
-            
-            epoch=epoch+1
             
             for x,d in zip(X,D):
                 v=np.dot(self.synaptic_weights,np.transpose(x))
                 delta=(d-v)
                 self.synaptic_weights = self.synaptic_weights+self.learning_rate*delta*x
         
-            meanSquareError[epoch] = self.__meanSquareError(X, D)        
-            if np.abs(meanSquareError[epoch]-meanSquareError[epoch-1]) < error: break
+            meanSquareError.append(self.__meanSquareError(X, D))        
+            epoch=epoch+1
+            if np.abs(meanSquareError[-1]-meanSquareError[-2]) < error: break
         
-        return self.synaptic_weights,epoch-1,meanSquareError
+        return self.synaptic_weights,epoch,meanSquareError
 
     def train_batch(self,X,D,error):
         
-        meanSquareError=np.zeros(self.max_epoch)
-        
+        meanSquareError=[]
         epoch=0
-        meanSquareError[epoch] = self.__meanSquareError(X,D)        
+        
+        meanSquareError.append(self.__meanSquareError(X,D))
+        epoch=epoch+1        
         
         while epoch <= self.max_epoch-1:
-            epoch = epoch+1
+            
             deltaW=0
             for x,d in zip(X,D):
                 v=np.dot(self.synaptic_weights,np.transpose(x))
@@ -98,15 +98,17 @@ class perceptron(object):
                 deltaW=deltaW+self.learning_rate*delta*x
         
             self.synaptic_weights = self.synaptic_weights+deltaW
-            meanSquareError[epoch] = self.__meanSquareError(X, D)        
-            if np.abs(meanSquareError[epoch]-meanSquareError[epoch-1]) < error: break
+            meanSquareError.append(self.__meanSquareError(X, D))
+            epoch = epoch+1
+                    
+            if np.abs(meanSquareError[-1]-meanSquareError[-2]) < error: break
         
-        return self.synaptic_weights,epoch-1,meanSquareError
+        return self.synaptic_weights,epoch,meanSquareError
     
         
     def classify(self,x,w):
         
-        if w==None:
+        if w == None:
             v=np.dot(self.synaptic_weights,np.transpose(x))
         else:
             v=np.dot(w,np.transpose(x))

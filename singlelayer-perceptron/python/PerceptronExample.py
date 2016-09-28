@@ -13,7 +13,8 @@ if __name__ == '__main__':
     learning_rate=0.004
     max_epochs=100
     
-    w = np.matrix([[0.84,0.68,0.88]])
+    #w = np.matrix([[0.84,0.68,0.88]])
+    w=None
     nn = perceptron(w,3,learning_rate,max_epochs)
     w,epoch = nn.train_hebbian(X,D)
     print('\nFinal synaptics weights:')
@@ -27,7 +28,8 @@ if __name__ == '__main__':
     print(y)
     
     
-    w = np.matrix([[0.84,0.68,0.88]])
+    #w = np.matrix([[0.84,0.68,0.88]])
+    w=None
     w,epoch,hist = nn.train_adaline(X, D, 0.001)
     print('\nFinal synaptics weights:')
     print(w)
