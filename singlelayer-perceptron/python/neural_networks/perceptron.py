@@ -39,7 +39,7 @@ class perceptron(object):
             error=error+delta
             num_samples=num_samples+1
         
-        return 1.0*error/num_samples
+        return np.asscalar(1.0*error/num_samples)
                 
     def train_hebbian(self,X,D):
         
