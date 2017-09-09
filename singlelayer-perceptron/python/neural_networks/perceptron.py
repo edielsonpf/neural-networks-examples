@@ -19,9 +19,12 @@ class perceptron(object):
         self.max_epoch = max_epoch
         
         if initial_weights == None:
-            self.synaptic_weights = np.random.rand(n_inputs)
+            self.synaptic_weights = np.random.rand(n_inputs+1)
         else:    
             self.synaptic_weights = initial_weights
+        
+        print('\nInicial synaptic weights:')
+        print(self.synaptic_weights)    
                 
     def __sign(self,v):
         
@@ -34,6 +37,7 @@ class perceptron(object):
         error = 0
         num_samples=0
         for x,d in zip(X,D):
+            x=np.concatenate(([-1], x),axis=0)
             v=np.dot(self.synaptic_weights,np.transpose(x))
             delta=(d-v)**2
             error=error+delta
@@ -49,6 +53,7 @@ class perceptron(object):
         while errors == 1 and epoch <= self.max_epoch:
             errors=0
             for x,d in zip(X,D):
+                x=np.concatenate(([-1], x),axis=0)
                 v=np.dot(self.synaptic_weights,np.transpose(x))
                 y=self.__sign(v)
                 error=d-y
@@ -71,6 +76,7 @@ class perceptron(object):
         while epoch < self.max_epoch-1:
             
             for x,d in zip(X,D):
+                x=np.concatenate(([-1], x),axis=0)
                 v=np.dot(self.synaptic_weights,np.transpose(x))
                 delta=(d-v)
                 self.synaptic_weights = self.synaptic_weights+self.learning_rate*delta*x
