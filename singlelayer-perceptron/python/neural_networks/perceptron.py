@@ -99,6 +99,7 @@ class perceptron(object):
             
             deltaW=0
             for x,d in zip(X,D):
+                x=np.concatenate(([-1], x),axis=0)
                 v=np.dot(self.synaptic_weights,np.transpose(x))
                 delta=(d-v)
                 deltaW=deltaW+self.learning_rate*delta*x
@@ -113,7 +114,7 @@ class perceptron(object):
     
         
     def classify(self,x,w):
-        
+        x=np.concatenate(([-1], x),axis=0)
         if w == None:
             v=np.dot(self.synaptic_weights,np.transpose(x))
         else:
