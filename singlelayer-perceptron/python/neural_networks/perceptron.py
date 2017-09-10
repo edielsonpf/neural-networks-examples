@@ -18,7 +18,7 @@ class perceptron(object):
         self.learning_rate = learning_rate
         self.max_epoch = max_epoch
         
-        if initial_weights == None:
+        if initial_weights is None:
             self.synaptic_weights = np.random.rand(n_inputs+1)
         else:    
             self.synaptic_weights = initial_weights
@@ -115,7 +115,7 @@ class perceptron(object):
         
     def classify(self,x,w):
         x=np.concatenate(([-1], x),axis=0)
-        if w == None:
+        if w is None:
             v=np.dot(self.synaptic_weights,np.transpose(x))
         else:
             v=np.dot(w,np.transpose(x))
